@@ -8,14 +8,14 @@ Very much inspired by [quill-magic-url](https://github.com/visualjerk/quill-magi
 
 ## Install
 
-From CDN
+### From CDN
 
 ```
 <!-- After quill script includes -->
 <script src="https://unpkg.com/quill-emoji-parser@1.0.0/dist/quill-emoji-parser.min.js"></script>
 ```
 
-With NPM or Yarn
+### With NPM or Yarn
 
 ```
 npm install quill-emoji-parser
@@ -97,7 +97,7 @@ modules: {
 }
 ```
 
-### remojeEmoji
+### removeEmoji
 
 > Remove some emojis from the emoji map.
 
@@ -147,7 +147,7 @@ boolean;
 
 modules: {
   emojiParser: {
-    parseOnBlur: true;
+    parseOnBlur: true,
   }
 }
 ```
