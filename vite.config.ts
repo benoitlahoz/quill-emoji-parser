@@ -29,6 +29,9 @@ export default defineConfig({
       output: {
         inlineDynamicImports: true,
         exports: 'named',
+        globals: {
+          quill: 'Quill',
+        },
       },
     },
   },
