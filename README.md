@@ -16,7 +16,7 @@ A demo is available here: [Quill Emoji Parser](https://benoitlahoz.github.io/qui
 
 ```
 <!-- After quill script includes -->
-<script src="https://unpkg.com/quill-emoji-parser@1.0.0/dist/quill-emoji-parser.min.js"></script>
+<script src="https://unpkg.com/quill-emoji-parser@0.8.11/dist/quill-emoji-parser.min.js"></script>
 ```
 
 ### With NPM or Yarn
