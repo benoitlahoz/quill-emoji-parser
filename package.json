@@ -1,6 +1,6 @@
 {
   "name": "quill-emoji-parser",
-  "version": "1.0.0",
+  "version": "0.8.1",
   "license": "MIT",
   "author": "Benoît LAHOZ <info@benoitlahoz.io>",
   "keywords": [
@@ -19,7 +19,8 @@
   "types": "./dist/quill-emoji-parser.d.ts",
   "scripts": {
     "build": "vite build --config vite.config.ts",
-    "dev": "vite ./demo"
+    "dev": "vite ./demo",
+    "dev:pack": "npm pack --pack-destination ./packages"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
