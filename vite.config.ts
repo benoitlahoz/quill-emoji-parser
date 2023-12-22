@@ -42,7 +42,7 @@ export default defineConfig({
       writeBundle() {
         copyFileSync(
           resolve(__dirname, 'dist', 'quill-emoji-parser.min.js'),
-          join(__dirname, 'demo', 'quill-emoji-parser.min.js')
+          join(__dirname, 'docs', 'quill-emoji-parser.min.js')
         );
         /*
         this.emitFile({
