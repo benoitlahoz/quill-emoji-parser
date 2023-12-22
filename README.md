@@ -439,3 +439,4 @@ modules: {
 
 - [ ] Allow reverting transformation and persistently keeping shortcuts on `backspace` input.
 - [ ] Tests
+- [ ] Two entries: one with default map, one without map.
