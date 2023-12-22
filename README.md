@@ -8,7 +8,7 @@ Very much inspired by [quill-magic-url](https://github.com/visualjerk/quill-magi
 
 ## Demo
 
-A demo is available here: [Quill Emoji Parser demo](https://benoitlahoz.github.io/quill-emoji-parser/)
+A demo is available here: [Quill Emoji Parser](https://benoitlahoz.github.io/quill-emoji-parser/)
 
 ## Install
 
