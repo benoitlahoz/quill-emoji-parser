@@ -78,6 +78,8 @@ export default class EmojiParser {
     selection?: RangeStatic | null
   ) => {};
 
+  private _boundTextToEmoji;
+
   constructor(quill: Quill, options?: EmojiParserOptions) {
     this._quill = quill;
 
@@ -99,6 +101,7 @@ export default class EmojiParser {
     if (options?.onUpdated) this._onUpdated = options.onUpdated.bind(this);
 
     this._parseOnBlur = options?.parseOnBlur || false;
+    this._boundTextToEmoji = this._checkTextForEmoji.bind(this);
 
     this.registerTypeListener();
     this.registerPasteListener();
@@ -111,6 +114,11 @@ export default class EmojiParser {
         bypassEmojis: this._bypassEmojis.bind(this),
         parseOnBlur: (value: boolean) => {
           this._parseOnBlur = value;
+
+          // Remove any listener already set (config or dynamic).
+          this._quill.root.removeEventListener('blur', this._boundTextToEmoji);
+
+          this.registerBlurListener();
         },
       });
     }
@@ -185,15 +193,13 @@ export default class EmojiParser {
 
   public registerBlurListener() {
     if (this._parseOnBlur) {
-      this._quill.root.addEventListener('blur', () => {
-        // One last check.
-        this._checkTextForEmoji();
-      });
+      this._quill.root.addEventListener('blur', this._boundTextToEmoji);
     }
   }
 
   private _checkTextForEmoji() {
-    const sel = this._quill.getSelection();
+    const focus = this._quill.hasFocus();
+    const sel = this._quill.getSelection(focus === false ? false : undefined); // Quill types bug.
     if (!sel) {
       return;
     }
@@ -244,6 +250,8 @@ export default class EmojiParser {
               );
 
               this._onUpdated(word, emoji, ops, this._quill.getSelection());
+
+              if (!focus) this._quill.blur();
             });
           }
         }
@@ -298,7 +306,7 @@ export default class EmojiParser {
 
     if (typeof shortcuts === 'string') {
       const potentialRegExp = this._stringToRegex(shortcuts.trim());
-      console.log(potentialRegExp);
+
       if (potentialRegExp) {
         this._currentMap = Object.fromEntries(
           Object.entries({ ...this._baseMap }).filter(
