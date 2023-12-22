@@ -51,6 +51,7 @@
       .content-box {
         display: flex;
         height: 400px;
+        margin-bottom: 3rem;
       }
 
       .editor-box {
@@ -81,6 +82,7 @@
         flex-grow: 1;
         padding: 1rem;
         padding-left: 2rem;
+        margin: 1rem 0;
         overflow-y: scroll;
         opacity: 0.5;
       }
@@ -107,6 +109,32 @@
         width: 300px;
         border-radius: 9999px;
         padding: 0 1rem;
+      }
+
+      .options-box .option button {
+        cursor: pointer;
+        background: #002f3d;
+        color: white;
+        border-radius: 9999px;
+        padding: 0 1rem;
+        font-weight: bold;
+        outline: none;
+        border: 1px solid #001f29;
+      }
+
+      .options-box .option button:hover {
+        color: #002f3d;
+        background: #ffe70f;
+      }
+
+      .options-box .option button:active {
+        color: black;
+        background: #c7b300;
+      }
+
+      .options-box .option button.toggled {
+        color: white;
+        background: #0038c7;
       }
 
       .options-box .option pre {
@@ -140,12 +168,23 @@
             type="text"
           />
         </div>
+
+        <div class="option">
+          <pre>parseOnBlur</pre>
+          <button id="parse-on-blur">Parse On Blur</button>
+        </div>
+
+        <div class="option">
+          <pre>refresh</pre>
+          <button id="refresh">Refresh</button>
+        </div>
       </div>
     </div>
 
     <script src="./quill-emoji-parser.min.js"></script>
     <script>
       const consolE = document.body.getElementsByClassName('console-box')[0];
+      let parseOnBlur = false;
 
       const log = (text) => {
         const pre = document.createElement('pre');
@@ -165,6 +204,22 @@
         removeEmojisEl.addEventListener('input', () => {
           emojiParserInstance.bypassEmojis(removeEmojisEl.value);
         });
+
+        const parseOnBlurEl = document.getElementById('parse-on-blur');
+        parseOnBlurEl.addEventListener('click', () => {
+          parseOnBlur = !parseOnBlur;
+          console.log(parseOnBlur);
+
+          if (parseOnBlur) parseOnBlurEl.classList.add('toggled');
+          else parseOnBlurEl.classList.remove('toggled');
+
+          emojiParserInstance.parseOnBlur(parseOnBlur);
+        });
+
+        const refreshEl = document.getElementById('refresh');
+        refreshEl.addEventListener('click', () => {
+          emojiParserInstance.refresh();
+        });
       };
 
       let emojiParserInstance;
@@ -177,9 +232,11 @@
             onInstance(instance) {
               emojiParserInstance = instance;
               addListeners();
+              log('> onInstance was called.');
               log('Module was instantiated.');
             },
             onBeforeUpdate(shortcut, emoji) {
+              log('> onBeforeUpdate was called.');
               log(`Will try to parse '${shortcut}' to '${emoji}'.`);
               if (shortcut === ':poop:') {
                 log("Parse blocked by callback on ':poop:'...");
@@ -189,10 +246,14 @@
               // return true;
             },
             onUpdated(shortcut, emoji, delta, selection) {
+              log('> onUpdated was called.');
               log(`Did parse '${shortcut}' to '${emoji}'.`);
 
-              if (selection)
+              if (selection) {
                 log(`Selection is at position ${selection.index}.`);
+              } else {
+                log(`Selection is null.`);
+              }
             },
           },
         },
