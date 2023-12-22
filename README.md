@@ -6,6 +6,10 @@ Checks for emojis shortcuts during typing and pasting and replace them by their 
 
 Very much inspired by [quill-magic-url](https://github.com/visualjerk/quill-magic-url/) and the answer to [this Stack Overflow question](https://stackoverflow.com/questions/77667011/in-quill-how-to-parse-deltas-and-replace-some-of-its-content).
 
+## Demo
+
+A demo is available here: [Quill Emoji Parser demo](https://benoitlahoz.github.io/quill-emoji-parser/)
+
 ## Install
 
 ### From CDN
