@@ -1,4 +1,6 @@
 # quill-emoji-parser
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser?ref=badge_shield)
+
 
 ---
 
@@ -444,3 +446,7 @@ modules: {
 - [ ] Allow reverting transformation and persistently keeping shortcuts on `backspace` input.
 - [ ] Tests
 - [ ] Two entries: one with default map, one without map.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser?ref=badge_large)
