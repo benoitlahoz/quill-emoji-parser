@@ -2,9 +2,13 @@
 
 ---
 
+[![npm version](https://badge.fury.io/js/quill-emoji-parser.svg)](https://badge.fury.io/js/quill-emoji-parser)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser?ref=badge_shield&issueType=license)
+
 Checks for emojis shortcuts during typing and pasting and replace them by their visual counterpart.
 
-Very much inspired by [quill-magic-url](https://github.com/visualjerk/quill-magic-url/) and the answer to [this Stack Overflow question](https://stackoverflow.com/questions/77667011/in-quill-how-to-parse-deltas-and-replace-some-of-its-content).
+Very much inspired by [quill-magic-url](https://github.com/visualjerk/quill-magic-url/) and the answer to [this Stack Overflow question](https://stackoverflow.com/questions/77667011/in-quill-how-to-parse-deltas-and-replace-some-of-its-content). Default map is taken from [Smile2Emoji](https://github.com/emish89/smile2emoji) 🙏.
 
 ## Demo
 
@@ -15,8 +19,14 @@ A demo is available here: [Quill Emoji Parser](https://benoitlahoz.github.io/qui
 ### From CDN
 
 ```
-<!-- After quill script includes -->
-<script src="https://unpkg.com/quill-emoji-parser@0.8.11/dist/quill-emoji-parser.min.js"></script>
+<!-- For full module with map included, after quill script includes -->
+<script src="https://unpkg.com/quill-emoji-parser@0.9.0/dist/quill-emoji-parser.map-incl.min.js"></script>
+
+<!-- For base module without map included, after quill script includes -->
+<script src="https://unpkg.com/quill-emoji-parser@0.9.0/dist/quill-emoji-parser.min.js"></script>
+
+<!-- Import default emojis map, named EmojiMap -->
+<script src="https://unpkg.com/quill-emoji-parser@0.9.0/dist/quill-emoji-parser.default-map.min.js"></script>
 ```
 
 ### With NPM or Yarn
@@ -27,9 +37,22 @@ npm install quill-emoji-parser
 yarn add quill-emoji-parser
 ```
 
+**With default emojis map included**
+
 ```typescript
 import Quill from 'quill';
 import EmojiParser from 'quill-emoji-parser';
+
+Quill.register('modules/emojiParser', EmojiParser);
+```
+
+**With no emojis map included**
+
+```typescript
+import Quill from 'quill';
+import EmojiParser from 'quill-emoji-parser/base';
+// Optionally import default map.
+// import { EmojiMap } from 'quill-emoji-parser/default-map';
 
 Quill.register('modules/emojiParser', EmojiParser);
 ```
@@ -41,7 +64,20 @@ Quill.register('modules/emojiParser', EmojiParser);
 ```typescript
 const quill = new Quill(editor, {
   modules: {
+    // When module was imported with map included (default).
     emojiParser: true,
+
+    // When module was imported with
+    // import EmojiParser from 'quill-emoji-parser/base;
+    // import { EmojiMap } from 'quill-emoji-parser/default-map;
+    emojiParser: {
+      map: EmojiMap,
+    },
+
+    // When module was included with script tags, to use default map.
+    emojiParser: {
+      map: EmojiMap.default,
+    },
   },
 });
 ```
@@ -65,11 +101,11 @@ const quill = new Quill(editor, {
 
 ## Options
 
-All options are undefined or false by default.
+When importing full package with default map, all options are undefined or false by default. If module was imported without map (ie. `... from 'quill-emoji-parser/base'`), you need to explicitly provide a map.
 
 ```typescript
 export interface EmojiParserOptions {
-  // A custom map to use.
+  // A custom map to use (mandatory when importing 'base' package).
   map?: Record<string, string>;
   // Shortcuts to be bypassed.
   bypassShortcuts?: RegExp | Array<string> | string;
@@ -105,6 +141,8 @@ export interface EmojiParserOptions {
 > Imports a custom shortcut-to-replacement map.
 > That means that you can eventually use `quill-emoji-parser` as a... anything parser...
 > With some limitations... Use at your own risk!
+>
+> **To avoid importing the full package when providing a custom map:** > `import EmojiParser from 'quill-emoji-parser/base';`
 
 ```typescript
 Record<string, string>;
@@ -439,8 +477,26 @@ modules: {
 }
 ```
 
-## TODOS
+## Bundle size
 
-- [ ] Allow reverting transformation and persistently keeping shortcuts on `backspace` input.
+|                 | UMD      | UMD gzipped | Module   | Module gzipped |
+| --------------- | -------- | ----------- | -------- | -------------- |
+| `.`             | 22.37 kB | 8.94 kB     | 29.47 kB | 9.49 kB        |
+| `./base`        | 5.34 kB  | 1.71 kB     | 8.58 kB  | 2.14 kB        |
+| `./default-map` | 17.43 kB | 7.39 kB     | 21.03 kB | 7.35 kB        |
+
+## Todos
+
+- [ ] Allow reverting transformation and keeping shortcuts on `backspace` input.
 - [ ] Tests
-- [ ] Two entries: one with default map, one without map.
+- [x] Two entries: one with default map, one without map **v0.9.0**.
+
+## Known Bugs
+
+- [ ] When dynamically changing the `bypass` options, selection is not always accurate.
+
+## License
+
+MIT © Benoît Lahoz
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser?ref=badge_large&issueType=license)
