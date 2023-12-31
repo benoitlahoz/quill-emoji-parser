@@ -1,7 +1,7 @@
 import Quill from 'quill';
 import EmojiParserBase, { EmojiParserOptions } from '../classes/emoji.parser';
 
-export class EmojiParser extends EmojiParserBase {
+class EmojiParser extends EmojiParserBase {
   constructor(quill: Quill, options: EmojiParserOptions) {
     if (!options.map) {
       throw new Error(
@@ -11,6 +11,8 @@ export class EmojiParser extends EmojiParserBase {
     super(quill, options);
   }
 }
+
+export { EmojiParser as default };
 
 if (window != null && window.Quill) {
   window.Quill.register('modules/emojiParser', EmojiParser);

@@ -1,7 +1,7 @@
 {
   "name": "quill-emoji-parser",
   "description": "Transform punctuation or shortcode emojis into their visual counterpart while typing or pasting.",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "license": "MIT",
   "author": "Benoît LAHOZ <info@benoitlahoz.io>",
   "keywords": [
