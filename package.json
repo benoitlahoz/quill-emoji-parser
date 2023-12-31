@@ -1,7 +1,7 @@
 {
   "name": "quill-emoji-parser",
   "description": "Transform punctuation or shortcode emojis into their visual counterpart while typing or pasting.",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "license": "MIT",
   "author": "Benoît LAHOZ <info@benoitlahoz.io>",
   "keywords": [
@@ -28,8 +28,14 @@
   "types": "./dist/quill-emoji-parser.d.ts",
   "exports": {
     ".": "./dist/quill-emoji-parser.map-incl.mjs",
-    "./base": "./dist/quill-emoji-parser.mjs",
-    "./default-map": "./dist/quill-emoji-parser.default-map.mjs"
+    "./base": {
+      "import": "./dist/quill-emoji-parser.mjs",
+      "types": "./dist/base/index.d.ts"
+    },
+    "./default-map": {
+      "import": "./dist/quill-emoji-parser.default-map.mjs",
+      "types": "./dist/maps/emoji.map.d.ts"
+    }
   },
   "scripts": {
     "build": "rimraf ./dist && vite build --config vite.config.base.ts && vite build --config vite.config.map.ts && vite build --config vite.config.map-incl.ts",
