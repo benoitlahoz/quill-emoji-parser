@@ -1,16 +1,15 @@
 import { resolve, join } from 'path';
-import { readFileSync, copyFileSync } from 'fs';
+import { copyFileSync } from 'fs';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/emoji.parser.ts'),
+      entry: resolve(__dirname, 'src/map-included/index.ts'),
       name: 'EmojiParser',
       fileName: (format: any) => {
-        const name = 'quill-emoji-parser';
+        const name = 'quill-emoji-parser.map-incl';
 
         if (format === 'umd') {
           return `${name}.min.js` as string;
@@ -23,7 +22,7 @@ export default defineConfig({
     target: 'esnext',
     minify: 'terser',
     outDir: 'dist',
-    emptyOutDir: true,
+    emptyOutDir: false,
     rollupOptions: {
       external: ['quill'],
       output: {
@@ -39,24 +38,13 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
     }),
-    // Explicitly emit an index.html file for demo purposes
     {
       name: 'copy-bundle',
       writeBundle() {
         copyFileSync(
-          resolve(__dirname, 'dist', 'quill-emoji-parser.min.js'),
-          join(__dirname, 'docs', 'quill-emoji-parser.min.js')
+          resolve(__dirname, 'dist', 'quill-emoji-parser.map-incl.min.js'),
+          join(__dirname, 'docs', 'quill-emoji-parser.map-incl.min.js')
         );
-        /*
-        this.emitFile({
-          type: 'asset',
-          fileName: 'index.html',
-          source: readFileSync(
-            resolve(__dirname, 'demo', 'index.html'),
-            'utf-8'
-          ),
-        });
-        */
       },
     },
   ],

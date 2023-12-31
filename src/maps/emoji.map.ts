@@ -1,4 +1,4 @@
-export const EmojiMap: Record<string, string> = {
+export default {
   'o/': '👋',
   '</3': '💔',
   '<3': '❤️',
