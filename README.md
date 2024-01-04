@@ -1,4 +1,6 @@
 # quill-emoji-parser
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser?ref=badge_shield)
+
 
 ---
 
@@ -489,14 +491,10 @@ modules: {
 
 - [ ] Allow reverting transformation and keeping shortcuts on `backspace` input.
 - [ ] Tests
-- [x] Two entries: one with default map, one without map **v0.9.0**.
+- [ ] Two entries: one with default map, one without map.
 
-## Known Bugs
-
-- [ ] When dynamically changing the `bypass` options, selection is not always accurate.
 
 ## License
-
 MIT © Benoît Lahoz
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser?ref=badge_large&issueType=license)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbenoitlahoz%2Fquill-emoji-parser?ref=badge_large)
