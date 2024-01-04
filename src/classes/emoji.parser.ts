@@ -1,5 +1,4 @@
 import Quill, { RangeStatic } from 'quill';
-import { EmojiMap } from './emoji.map';
 
 const Delta = Quill.import('delta');
 
@@ -11,7 +10,7 @@ declare global {
 
 export interface EmojiParserOptions {
   // A custom map to use.
-  map?: Record<string, string>;
+  map: Record<string, string>;
   // Shortcuts to be bypassed.
   bypassShortcuts?: RegExp | Array<string> | string;
   // Emojis to be bypassed.
@@ -57,7 +56,7 @@ export interface EmojiParserInstance {
 
 export default class EmojiParser {
   private _quill: Quill;
-  private _baseMap = { ...EmojiMap };
+  private _baseMap: Record<string, string>;
   private _currentMap: Record<string, string>;
   private _emojisBlacklist: Array<string> = [];
 
@@ -80,34 +79,34 @@ export default class EmojiParser {
 
   private _boundTextToEmoji;
 
-  constructor(quill: Quill, options?: EmojiParserOptions) {
+  constructor(quill: Quill, options: EmojiParserOptions) {
     this._quill = quill;
 
-    this._baseMap = options?.map ? { ...options.map } : { ...this._baseMap };
+    this._baseMap = { ...options.map };
     this._currentMap = this._baseMap;
 
-    this._bypassShortcuts(options?.bypassShortcuts);
-    this._bypassEmojis(options?.bypassEmojis);
+    this._bypassShortcuts(options.bypassShortcuts);
+    this._bypassEmojis(options.bypassEmojis);
 
-    if (options?.onBeforePaste)
+    if (options.onBeforePaste)
       this._onBeforePaste = options.onBeforePaste.bind(this);
-    if (options?.onPasted) this._onPasted = options.onPasted.bind(this);
-    if (options?.onBeforeTextChange)
+    if (options.onPasted) this._onPasted = options.onPasted.bind(this);
+    if (options.onBeforeTextChange)
       this._onBeforeTextChange = options.onBeforeTextChange.bind(this);
-    if (options?.onTextChanged)
+    if (options.onTextChanged)
       this._onTextChanged = options.onTextChanged.bind(this);
-    if (options?.onBeforeUpdate)
+    if (options.onBeforeUpdate)
       this._onBeforeUpdate = options.onBeforeUpdate.bind(this);
-    if (options?.onUpdated) this._onUpdated = options.onUpdated.bind(this);
+    if (options.onUpdated) this._onUpdated = options.onUpdated.bind(this);
 
-    this._parseOnBlur = options?.parseOnBlur || false;
+    this._parseOnBlur = options.parseOnBlur || false;
     this._boundTextToEmoji = this._checkTextForEmoji.bind(this);
 
     this.registerTypeListener();
     this.registerPasteListener();
     this.registerBlurListener();
 
-    if (options?.onInstance) {
+    if (options.onInstance) {
       options.onInstance({
         refresh: this._refresh.bind(this),
         bypassShortcuts: this._bypassShortcuts.bind(this),
@@ -407,9 +406,3 @@ export default class EmojiParser {
     }
   }
 }
-
-if (window != null && window.Quill) {
-  window.Quill.register('modules/emojiParser', EmojiParser);
-}
-
-export { EmojiMap };

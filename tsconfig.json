@@ -3,13 +3,13 @@
     "target": "ESNext",
     "lib": ["ES2015", "DOM"],
     "moduleResolution": "node",
-    "module": "ES2015",
+    "module": "ESNext",
     "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "baseUrl": "."
+    "baseUrl": "src"
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"]
 }

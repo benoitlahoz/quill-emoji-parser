@@ -185,16 +185,17 @@
     </div>
 
     <script src="./quill-emoji-parser.min.js"></script>
+    <script src="./quill-emoji-parser.default-map.min.js"></script>
     <script>
-      const consolE = document.body.getElementsByClassName('console-box')[0];
+      const konsole = document.body.getElementsByClassName('console-box')[0];
       let parseOnBlur = false;
 
       const log = (text) => {
         const pre = document.createElement('pre');
         pre.innerText = text;
 
-        consolE.appendChild(pre);
-        consolE.scrollTo(0, consolE.scrollHeight);
+        konsole.appendChild(pre);
+        konsole.scrollTo(0, konsole.scrollHeight);
       };
 
       const addListeners = () => {
@@ -226,11 +227,11 @@
       };
 
       let emojiParserInstance;
-
       const quill = new Quill('#editor', {
         theme: 'snow',
         modules: {
           emojiParser: {
+            map: EmojiMap.default,
             // removeShortcut: '<3',
             onInstance(instance) {
               emojiParserInstance = instance;
